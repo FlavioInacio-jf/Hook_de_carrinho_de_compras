@@ -1,5 +1,9 @@
 import { MdAddShoppingCart } from 'react-icons/md';
 
+interface CartItemsAmount {
+  [key: number]: number;
+}
+
 interface ProductProps {
   product: {
     id: number;
@@ -9,9 +13,10 @@ interface ProductProps {
     priceFormatted: string;
   };
   onAddProductCart: (id: number) => void;
+  cartItemsAmount: CartItemsAmount;
 }
 
-export function Product({ product, onAddProductCart }: ProductProps) {
+export function Product({ product, onAddProductCart, cartItemsAmount }: ProductProps) {
   return (
     <li>
       <img src={product.image} alt={product.title} />
@@ -24,7 +29,7 @@ export function Product({ product, onAddProductCart }: ProductProps) {
       >
         <div data-testid="cart-product-quantity">
           <MdAddShoppingCart size={16} color="#FFF" />
-          {/* {cartItemsAmount[product.id] || 0} */} 2
+          {cartItemsAmount[product.id] || 0}
         </div>
 
         <span>ADICIONAR AO CARRINHO</span>
