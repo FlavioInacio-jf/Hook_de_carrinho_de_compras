@@ -37,6 +37,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       const { data: stock } = await api.get(`http://localhost:3333/stock/${productId}`)
 
       if (stock.amount > 0) {
+
         const hasProductInCart = cart.some(elemt => elemt.id === data.id);
         if (hasProductInCart) {
           const products = cart.map(product => {
@@ -64,9 +65,18 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
 
   const removeProduct = (productId: number) => {
     try {
-      const products = cart.filter(product => product.id !== productId)
-      setCart(products);
-      localStorage.setItem('@RocketShoes:cart', JSON.stringify(products))
+      const hasProductInCart = cart.some(elemt => elemt.id === productId);
+
+      if (hasProductInCart) {
+        const products = cart.filter(product => product.id !== productId)
+        setCart(products);
+        localStorage.setItem('@RocketShoes:cart', JSON.stringify(products))
+      }
+
+      else {
+        toast.error('Erro na remoção do produto');
+      }
+
     } catch {
       toast.error('Erro na remoção do produto');
     }
