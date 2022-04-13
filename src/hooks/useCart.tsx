@@ -82,7 +82,7 @@ export function CartProvider({ children }: CartProviderProps): JSX.Element {
       if (stock > 0) {
         const products = cart.map(product => {
           if (product.id === productId) {
-            return { ...product, amount: product.amount + 1 }
+            return { ...product, amount: product.amount + amount }
           }
           return product
         })
